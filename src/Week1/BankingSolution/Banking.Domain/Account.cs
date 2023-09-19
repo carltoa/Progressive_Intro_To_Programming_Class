@@ -8,12 +8,12 @@ public class Account
         _balance = 5000m;
     }
 
-    public void Deposit(decimal amountToDeposit)
+    public void Deposit(TransactionValueTypes.Deposit amountToDeposit)
     {
         _balance += amountToDeposit;
     }
 
-    public decimal GetBalance()
+    public TransactionValueTypes.Balance GetBalance()
     {
         return _balance;
     }
