@@ -29,6 +29,13 @@ public class DeclaringLocalVariables
 
         var rover = new Dog(); //Dog class defined at bottom of this file
     }
+
+    [Fact]
+    public void ImplicitlyTypedLocalVariablesWithNew()
+    {
+        // .NET 5
+        Dog rover = new();
+    }
 }
 
 public class Dog { }
