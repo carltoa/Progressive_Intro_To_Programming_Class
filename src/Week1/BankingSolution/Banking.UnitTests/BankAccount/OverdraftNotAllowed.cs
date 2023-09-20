@@ -6,33 +6,40 @@ public class OverdraftNotAllowed
     [Fact]
     public void BalanceDoesNotDecreaseOnOverdraft()
     {
-        //withdrawal of more than account balance should not result in any change in balance
+        // If you overdraft, what should be the "observable" thing that happens?
+        // - it shouldn't decrease your balance.
+        //    - if I have 5000, and I take out 6000, then I should still have 5000
+        // Given
         var account = new Account();
         var openingBalance = account.GetBalance();
-        var amountToWithdraw = openingBalance + 0.01m;
 
+        var amountToWithdraw = TransactionValueTypes.Withdrawal.CreateFrom(openingBalance + .01M);
+
+
+        // When
         try
         {
             account.Withdraw(amountToWithdraw);
         }
         catch (OverdraftException)
         {
-            //ignore
+
+            // Ignore
         }
         finally
         {
             Assert.Equal(openingBalance, account.GetBalance());
         }
     }
-
     [Fact]
     public void OverdraftThrowsAnException()
     {
-        //withdrawal of more than account balance should throw exception
+        // Given
         var account = new Account();
         var openingBalance = account.GetBalance();
-        var amountToWithdraw = openingBalance + 0.01m;
 
+        var amountToWithdraw = TransactionValueTypes.Withdrawal.CreateFrom(openingBalance + .01M);
+        // When & then
         Assert.Throws<OverdraftException>(() =>
         {
             account.Withdraw(amountToWithdraw);
