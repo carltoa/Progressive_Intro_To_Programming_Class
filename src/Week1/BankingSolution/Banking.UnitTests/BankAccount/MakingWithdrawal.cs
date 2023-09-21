@@ -1,8 +1,16 @@
 ﻿using Banking.Domain;
+using Banking.UnitTests.TestDoubles;
 
 namespace Banking.UnitTests.BankAccount;
 public class MakingWithdrawal
 {
+    private readonly Account _account;
+    private readonly decimal _openingBalance;
+    public MakingWithdrawal()
+    {
+        _account = new Account(new DummyStandardBonusCalculator());
+        _openingBalance = _account.GetBalance();
+    }
 
     [Theory]
     [InlineData(82.23)]
@@ -10,24 +18,23 @@ public class MakingWithdrawal
     public void MakingAWithdrawalDecreasesTheBalance(decimal amountToWithdraw)
     {
         // Given
-        var account = new Account();
-        var openingBalance = account.GetBalance();
+
         var withdraw = TransactionValueTypes.Withdrawal.CreateFrom(amountToWithdraw);
 
         // When
-        account.Withdraw(withdraw);
+        _account.Withdraw(withdraw);
 
-        Assert.Equal(openingBalance - amountToWithdraw, account.GetBalance());
+        Assert.Equal(_openingBalance - amountToWithdraw, _account.GetBalance());
     }
 
     [Fact]
     public void CanTakeEntireBalance()
     {
-        var account = new Account();
-        var withdraw = TransactionValueTypes.Withdrawal.CreateFrom(account.GetBalance());
 
-        account.Withdraw(withdraw);
+        var withdraw = TransactionValueTypes.Withdrawal.CreateFrom(_openingBalance);
 
-        Assert.Equal(0, account.GetBalance());
+        _account.Withdraw(withdraw);
+
+        Assert.Equal(0, _account.GetBalance());
     }
 }

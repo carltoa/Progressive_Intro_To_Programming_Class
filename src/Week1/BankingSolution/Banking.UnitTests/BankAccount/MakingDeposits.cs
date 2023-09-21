@@ -1,5 +1,6 @@
 ﻿
 using Banking.Domain;
+using Banking.UnitTests.TestDoubles;
 
 namespace Banking.UnitTests.BankAccount;
 public class MakingDeposits
@@ -8,7 +9,7 @@ public class MakingDeposits
     public void MakingADepositIncreasesTheBalance()
     {
         // Given
-        var account = new Account();
+        var account = new Account(new DummyStandardBonusCalculator());
         var openingBalance = account.GetBalance();
         var amountToDeposit = 125.23M;
         var deposit = TransactionValueTypes.Deposit.CreateFrom(amountToDeposit);
@@ -17,6 +18,7 @@ public class MakingDeposits
         account.Deposit(deposit);
 
         // Then
+
         Assert.Equal(openingBalance + amountToDeposit, account.GetBalance());
     }
 
