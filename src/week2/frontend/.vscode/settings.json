@@ -1,0 +1,12 @@
+{
+    "editor.minimap.enabled": false,
+    "editor.linkedEditing": true,
+    "files.autoSave": "onFocusChange",
+    "editor.formatOnSave": true,
+    "eslint.codeActionsOnSave.mode": "all",
+    "files.associations": {
+        "*.css": "tailwindcss"
+    },
+    "tailwindCSS.emmetCompletions": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+}
