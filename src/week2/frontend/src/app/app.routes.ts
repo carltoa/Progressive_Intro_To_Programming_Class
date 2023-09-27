@@ -13,9 +13,10 @@ export const routes: Routes = [
     component: SupportComponent,
   },
   {
-    path: "todos",
-    component: TodosComponent,
+    path: 'todos',
+    component: TodosComponent
   },
+
   {
     path: "**",
     redirectTo: "dashboard",

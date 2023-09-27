@@ -13,4 +13,4 @@ import { CommonModule } from "@angular/common";
   `,
   styles: [],
 })
-export class HeadingComponent {}
+export class HeadingComponent { }

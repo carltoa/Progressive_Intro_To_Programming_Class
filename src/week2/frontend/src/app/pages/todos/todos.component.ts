@@ -1,24 +1,33 @@
-import { Component } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { TodoListComponent } from "./components/todo-list.component";
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { TodoEntryComponent } from "./components/todo-entry.component";
-import { TodosDataService } from "src/app/services/todos-data.services";
+import { TodoListComponent } from "./components/todo-list.component";
+import { TodoItem, TodosDataService } from 'src/app/services/todos-data.service';
 
 @Component({
-  selector: "app-todos",
   standalone: true,
   template: `
-    <section>
-      <app-todo-entry></app-todo-entry>
-    </section>
-    <section>
-      <app-todo-list [items]="todoItems()" ]></app-todo-list>
-    </section>
+   <section>
+    <app-todo-entry (itemAdded)="timeToAddAnItem($event)" />
+   </section>
+   <section>
+    <app-todo-list [items]="todoItems()" message="Here is all the stuff you have to do!" (itemMarkedComplete)="timeToMarkItemComplete($event)" />
+   </section>
   `,
   styleUrls: ["./todos.component.css"],
-  imports: [CommonModule, TodoListComponent, TodoEntryComponent],
+  imports: [CommonModule, TodoEntryComponent, TodoListComponent]
 })
 export class TodosComponent {
+
   todoItems = this.service.getItems();
-  constructor(private readonly service: TodosDataService) {}
+  sayThis = 'Demo Header';
+  constructor(private readonly service: TodosDataService) { }
+
+  timeToAddAnItem(description: string) {
+    this.service.addItem(description);
+  }
+
+  timeToMarkItemComplete(item: TodoItem) {
+    this.service.markItemComplete(item);
+  }
 }

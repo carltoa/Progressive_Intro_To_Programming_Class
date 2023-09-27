@@ -8,12 +8,14 @@ import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
   selector: "app-root",
   standalone: true,
   template: `
-    <app-nav-bar></app-nav-bar>
+    <app-nav-bar />
+   
+
     <main class="container mx-auto">
-      <router-outlet></router-outlet>
+      <router-outlet />
     </main>
   `,
   styles: [],
   imports: [CommonModule, RouterOutlet, HeadingComponent, NavBarComponent],
 })
-export class AppComponent {}
+export class AppComponent { }
