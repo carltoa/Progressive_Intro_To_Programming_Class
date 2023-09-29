@@ -27,7 +27,10 @@ import { PrefsComponent } from "./components/prefs/prefs.component";
 export class CounterComponent {
   current = this.store.selectSignal(counterFeature.selectCurrent);
   resetDisabled = this.store.selectSignal(counterFeature.selectResetShouldBeDisabled);
-  constructor(private readonly store: Store) { }
+  constructor(private readonly store: Store) {
+
+    store.dispatch(CounterEvents.counterEntered());
+  }
   increment() {
     this.store.dispatch(CounterEvents.incrementClicked());
   }

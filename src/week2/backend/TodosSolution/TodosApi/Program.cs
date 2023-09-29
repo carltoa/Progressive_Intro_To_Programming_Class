@@ -9,6 +9,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(pol =>
+    {
+        pol.AllowAnyOrigin();
+        pol.AllowAnyHeader();
+        pol.AllowAnyMethod();
+    });
+});
 var connectionString = builder.Configuration.GetConnectionString("todos") ?? throw new Exception("Can't start the api without a connection string");
 
 builder.Services.AddMarten(options =>
@@ -20,6 +29,7 @@ builder.Services.AddMarten(options =>
 builder.Services.AddScoped<IManageTodoLists, PostgresMartenTodoListManager>();
 var app = builder.Build();
 
+app.UseCors();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -31,4 +41,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+app.Run(); // Start a server that implements RFC 2616+ as a web server.
